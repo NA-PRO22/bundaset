@@ -1,4 +1,6 @@
 "use client";
+import Button from "@components/ui/Button";
+import { Camera } from "react-feather";
 import Input, { Rounded, Size, Variant } from "@components/ui/Input";
 import MultiSelect from "@components/ui/MultiSelect";
 import Select from "@components/ui/Select";
@@ -13,11 +15,18 @@ export default function Page() {
   const [variantvalue, setVariantValue] = useState<Variant>("normal");
   const [radiusValue, setRadiusValue] = useState<Rounded>("sm");
   const [sizeValue, SetSizeValue] = useState<Size>("md");
-  const [isDisabledValue, SetIsDisabledValue] = useState(false);
+  const [isDisabledValue, setIsDisabledValue] = useState(false);
   const [isInvalid, SetIsInvalidValue] = useState(false);
+  const [buttonVariant, setButtonVariant] = useState<any>("normal");
+  const [buttonSizeValue, setButtonSizeValue] = useState<Size>("md");
+  const [buttonRadiusValue, setButtonRadiusValue] = useState<Rounded>("sm");
+  const [isDisabledButton, setIsDisabledButton] = useState(false);
+  const [isCompact, setIsCompact] = useState(false);
+  const [isLoadingButton, setIsLoadingButton] = useState(false);
+  const [isUppercase, setIsUppercase] = useState(false);
   return (
     <div>
-      <div className="w-2/5 space-y-10 p-5  mt-10">
+      <div className="w-2/5 space-y-10 p-5 border-b  mt-10">
         <Input
           label="lable"
           type="email"
@@ -57,7 +66,7 @@ export default function Page() {
           <div className="flex gap-2 my-auto">
             <Switch
               onChange={() => {
-                SetIsDisabledValue(!isDisabledValue);
+                setIsDisabledValue(!isDisabledValue);
               }}
               label="Disabled"
             />
@@ -66,6 +75,87 @@ export default function Page() {
                 SetIsInvalidValue(!isInvalid);
               }}
               label="Invalid"
+            />
+          </div>
+        </div>
+        <div></div>
+      </div>
+      <div className="w-3/5 space-y-10 p-5 border-b  mt-10">
+        <div className="flex gap-5">
+          <Button LeftIcon={Camera}>Hello</Button>
+          <Button RightIcon={Camera}>Hello</Button>
+          <Button href="google.com" size="md">
+            Link
+          </Button>
+          <Button
+            variant={buttonVariant}
+            size={buttonSizeValue}
+            loading={isLoadingButton}
+            rounded={buttonRadiusValue}
+            compact={isCompact}
+            uppercase={isUppercase}
+            disabled={isDisabledButton}
+          >
+            Hello
+          </Button>
+        </div>
+        <div className="flex gap-4 flex-wrap">
+          <Select
+            creatable
+            onChange={setButtonVariant}
+            value={buttonVariant}
+            label="Variant"
+            placeholder="Button's Variant"
+            data={[
+              "normal",
+              "outlined",
+              "primary",
+              "danger",
+              "success",
+              "light",
+              "subtle",
+            ]}
+          />
+          <Select
+            creatable
+            onChange={setButtonRadiusValue}
+            value={buttonRadiusValue}
+            label="Radius"
+            placeholder="Button's Radius"
+            data={["sm", "md", "lg", "full", "none"]}
+          />
+          <Select
+            creatable
+            onChange={setButtonSizeValue}
+            value={buttonSizeValue}
+            label="Size"
+            placeholder="Button's Size"
+            data={["sm", "md", "lg"]}
+          />
+          <div className="flex gap-2 my-auto flex-wrap">
+            <Switch
+              onChange={() => {
+                setIsDisabledButton(!isDisabledButton);
+              }}
+              label="Disabled button"
+            />
+            <Switch
+              onChange={() => {
+                setIsCompact(!isCompact);
+              }}
+              label="Compact"
+            />
+            <Switch
+              onChange={() => {
+                setIsLoadingButton(!isLoadingButton);
+              }}
+              label="Loading..."
+            />
+            <Switch
+              onChange={() => {
+                setIsUppercase(!isUppercase);
+              }}
+              label="Uppercase"
             />
           </div>
         </div>
